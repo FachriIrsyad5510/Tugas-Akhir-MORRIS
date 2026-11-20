@@ -1,3 +1,5 @@
+# main.py
+from auth import menu_autentikasi
 from fitur import (
     fitur_menu_air,
     fitur_menu_bmr,
@@ -15,23 +17,27 @@ BANNER = r"""
    |____/ \___/|_|\_\_| \_|\___/  \_/_/   \_\
    """
 
-def tampilkan_banner():
+def tampilkan_banner(username_aktif):
   print("\n" + "=" * 48)
   print(BANNER)
   print("    + Aplikasi Kesehatan & Kalkulator TDEE +")
+  print(f"               User Aktif: {username_aktif} ")
   print("=" * 48)
 
 def main():
+  username_aktif = menu_autentikasi()
+
   while True:
-    tampilkan_banner()
+    tampilkan_banner(username_aktif)
     print("1. Hitung Indeks Massa Tubuh (IMT / BMI)")
     print("2. Hitung BMR (Mifflin-St Jeor)")
     print("3. Hitung Kebutuhan Kalori Harian (TDEE)")
     print("4. Hitung Rekomendasi Asupan Air Harian")
     print("5. Lihat Riwayat Perhitungan Sesi")
-    print("6. Keluar")
+    print("6. Logout / Ganti Akun")
+    print("7. Keluar Aplikasi")
 
-    pilihan = input_angka_bulat("Pilih menu (1-6): ", min_val=1, max_val=6)
+    pilihan = input_angka_bulat("Pilih menu (1-7): ", min_val=1, max_val=7)
 
     if pilihan == 1:
       fitur_menu_imt()
@@ -44,6 +50,10 @@ def main():
     elif pilihan == 5:
       tampilkan_riwayat()
     elif pilihan == 6:
+      print("\n[Info] Anda telah logout.")
+
+      username_aktif = menu_autentikasi()
+    elif pilihan == 7:
       print(
           "\nTerima kasih telah menggunakan DOKNOVA. Tetap jaga"
           " kesehatan!"
